@@ -5,8 +5,10 @@
 #include <unistd.h>
 #include <math.h>
 
+#define TO_MB(m) ((m * (unsigned long long)si.mem_unit) / MEGABYTE)
+
 /* set conversion constants */
-const double megabyte = 1024 * 1024;
+const double MEGABYTE = 1024 * 1024;
 
 int main() {
     struct sysinfo si;
@@ -14,11 +16,10 @@ int main() {
     sysinfo(&si);
     uname(&ut);
 
-    unsigned long totalmem = si.totalram *(unsigned long long)si.mem_unit / megabyte;
-    unsigned long usedmem = ((si.totalram *(unsigned long long)si.mem_unit) -
-			     (si.freeram *(unsigned long long)si.mem_unit)) / megabyte;
-    unsigned long buffermem = (si.bufferram *(unsigned long long)si.mem_unit) / megabyte;
-    unsigned long freemem = si.freeram *(unsigned long long)si.mem_unit / megabyte;
+    unsigned long totalmem = TO_MB(si.totalram);
+    unsigned long usedmem = TO_MB(si.totalram - si.freeram);
+    unsigned long buffermem = TO_MB(si.bufferram);
+    unsigned long freemem = TO_MB(si.freeram);
 
     long cpus = sysconf(_SC_NPROCESSORS_ONLN);
     long csize = sysconf(_SC_LEVEL1_ICACHE_SIZE) / pow(2, 10);
