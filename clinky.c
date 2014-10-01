@@ -27,7 +27,10 @@ int main() {
     unsigned long totalmem = si.totalram *(unsigned long long)si.mem_unit / megabyte;
     unsigned long usedmem = ((si.totalram *(unsigned long long)si.mem_unit) -
 			     (si.freeram *(unsigned long long)si.mem_unit)) / megabyte;
-    /* screen formatting */
+    unsigned long buffermem = (si.bufferram *(unsigned long long)si.mem_unit) / megabyte;
+
+
+    /* screen formatting, delayed until I get everything else working */
     /* mvprintw(0, 0,"%s", labels[0]); */
     /* mvprintw(1, 0,"%5.1f", */
     /* 	     ((si.totalram - si.freeram) - si.bufferram) / megabyte); */
@@ -38,11 +41,14 @@ int main() {
     /* getch(); */
     /* endwin(); */
     /* noecho(); */
+
+    /* raw readings */
     printf("Total Ram: %lluk\tFree: %lluk\n",
 	   si.totalram *(unsigned long long)si.mem_unit / 1024,
 	   si.freeram *(unsigned long long)si.mem_unit / 1024);
     printf("Total: %lu in human form\n", totalmem);
     printf("Used:  %lu in human form\n", usedmem);
+    printf("Buffer:%lu in human form\n", buffermem);
 
     return 0;
 }
