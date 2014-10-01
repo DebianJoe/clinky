@@ -24,10 +24,12 @@ int main() {
     printf("Buffer:   \033[1;31m%lu M\033[1;m\n", buffermem);
     printf("Uptime:   \033[1;31m%ld\033[1;m in seconds.\n", si.uptime);
     printf("Processes:\033[1;31m%d\033[1;m\n", si.procs);
-    printf("Page size:\033[1;31m%ld\033[1;m bytes\n\n", sysconf(_SC_PAGESIZE));
+    printf("Page size:\033[1;31m%ld\033[1;m bytes\n", sysconf(_SC_PAGESIZE));
+    long cpus = sysconf(_SC_NPROCESSORS_ONLN);
     long csize = sysconf(_SC_LEVEL1_ICACHE_SIZE) / pow(2, 10);
     long cassoc = sysconf(_SC_LEVEL1_ICACHE_ASSOC);
     long cline = sysconf(_SC_LEVEL1_ICACHE_LINESIZE);
+    printf("CPUs:     \033[1;31m%ld\033[1;m\n", cpus);
     printf("lvl 1 icache size = %ldK, \n\tassoc = %ld, \n\tline size = %ld\n",
 	   csize, cassoc, cline);
     csize = sysconf(_SC_LEVEL1_DCACHE_SIZE) / pow(2, 10);
@@ -40,7 +42,6 @@ int main() {
     cline = sysconf(_SC_LEVEL2_CACHE_LINESIZE);
     printf("lvl 2 cache size = %ldK, \n\tassoc = %ld, \n\tline size = %ld\n",
 	   csize, cassoc, cline);
-
 
     return 0;
 }
