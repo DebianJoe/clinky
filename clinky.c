@@ -16,20 +16,22 @@ int main() {
 			     (si.freeram *(unsigned long long)si.mem_unit)) / megabyte;
     unsigned long buffermem = (si.bufferram *(unsigned long long)si.mem_unit) / megabyte;
     unsigned long freemem = si.freeram *(unsigned long long)si.mem_unit / megabyte;
+
     /* raw readings */
     printf("\033[1;33m+++ \033[1;32mClinky \033[1;33m+++\033[1;m\n\n");
-    printf("Total:    \033[1;31m%lu M\033[1;m\n", totalmem);
-    printf("Used :    \033[1;31m%lu M\033[1;m (cache not subtracted)\n", usedmem);
-    printf("Free :    \033[1;31m%lu M\033[1;m\n", freemem);
-    printf("Buffer:   \033[1;31m%lu M\033[1;m\n", buffermem);
-    printf("Uptime:   \033[1;31m%ld\033[1;m in seconds.\n", si.uptime);
-    printf("Processes:\033[1;31m%d\033[1;m\n", si.procs);
-    printf("Page size:\033[1;31m%ld\033[1;m bytes\n", sysconf(_SC_PAGESIZE));
+    printf("Total:\t\t\033[1;31m%lu M\033[1;m\n", totalmem);
+    printf("Used:\t\t\033[1;31m%lu M\033[1;m (cache not subtracted)\n", usedmem);
+    printf("Free:\t\t\033[1;31m%lu M\033[1;m\n", freemem);
+    printf("Buffer:\t\t\033[1;31m%lu M\033[1;m\n", buffermem);
+    printf("Uptime:\t\t\033[1;31m%ld\033[1;m in seconds.\n", si.uptime);
+    printf("Load:\t\t\033[1;31m%.2f\033[1;m\n", si.loads[0] / 65536.0);
+    printf("Processes:\t\033[1;31m%d\033[1;m\n", si.procs);
+    printf("Page size:\t\033[1;31m%ld\033[1;m bytes\n", sysconf(_SC_PAGESIZE));
     long cpus = sysconf(_SC_NPROCESSORS_ONLN);
     long csize = sysconf(_SC_LEVEL1_ICACHE_SIZE) / pow(2, 10);
     long cassoc = sysconf(_SC_LEVEL1_ICACHE_ASSOC);
     long cline = sysconf(_SC_LEVEL1_ICACHE_LINESIZE);
-    printf("CPUs:     \033[1;31m%ld\033[1;m\n", cpus);
+    printf("CPUs:\t\t\033[1;31m%ld\033[1;m\n", cpus);
     printf("lvl 1 icache size = %ldK, \n\tassoc = %ld, \n\tline size = %ld\n",
 	   csize, cassoc, cline);
     csize = sysconf(_SC_LEVEL1_DCACHE_SIZE) / pow(2, 10);
