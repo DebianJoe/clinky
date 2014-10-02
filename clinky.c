@@ -23,7 +23,7 @@ int main() {
 
     /* raw readings */
     printf("\033[1;33m+++ \033[1;32mClinky \033[1;33m+++\033[1;m\n\n");
-    printf("uname:\t\t\033[1;31m%s %s %s\033[1;m\n", ut.sysname, ut.release, ut.version);
+    printf("uname:\t\t\033[1;31m%s\n\t\t%s\n\t\t%s\033[1;m\n", ut.sysname, ut.release, ut.version);
     printf("Hostname:\t\033[1;31m%s\033[1;m\n", ut.nodename);
     printf("Total:\t\t\033[1;31m%lu M\033[1;m\n", totalmem);
     printf("Used:\t\t\033[1;31m%lu M\033[1;m (cache not subtracted)\n", usedmem);
