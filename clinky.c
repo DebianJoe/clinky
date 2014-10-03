@@ -7,10 +7,26 @@
 
 #define TO_MB(m) ((m * (unsigned long long)si.mem_unit) / MEGABYTE)
 
+/* set delay for refresh, and switch if refresh is desired */
+static const int delay = 5; /* in seconds */
+static const char refresh = 1; /* if refreshing term is desired */
 /* set conversion constants */
 const double MEGABYTE = 1024 * 1024;
+void getnprint ();
+void hold ();
 
-int main() {
+int main () {
+    while (refresh == 1) {
+	getnprint();
+	hold();
+    }
+
+    getnprint();
+
+    return 0;
+}
+
+void getnprint() {
     struct sysinfo si;
     struct utsname ut;
     sysinfo(&si);
@@ -56,5 +72,10 @@ int main() {
     cline = sysconf(_SC_LEVEL2_CACHE_LINESIZE);
     printf("lvl 2 cache size = %ldK, \n\tassoc = %ld, \n\tline size = %ld\n",
 	   csize, cassoc, cline);
-    return 0;
+}
+
+void hold () {
+    fflush(stdout);
+    sleep(delay);
+    printf("\033[2J\033[1;H\033[1;30m");
 }
